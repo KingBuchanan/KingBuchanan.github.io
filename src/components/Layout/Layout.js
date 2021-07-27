@@ -1,9 +1,10 @@
-import React from 'react';
-import Sidebar from '../Sidebar';
-import UserHeader from '../UserHeader';
-import MobileNav from '../../MobileNav';
+/* eslint-disable react/prop-types */
+import React from 'react'
+import Sidebar from '../Sidebar'
+import UserHeader from '../UserHeader'
+import MobileNav from '../../MobileNav'
 
-import { StyledContent } from './styles';
+import { StyledContent } from './styles'
 
 const Layout = ({ user, children }) => {
   return (
@@ -15,7 +16,7 @@ const Layout = ({ user, children }) => {
         <div>{children}</div>
       </StyledContent>
     </>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

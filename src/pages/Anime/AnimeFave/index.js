@@ -1,3 +1,3 @@
-import AnimeFave from './AnimeFave';
+import AnimeFave from './AnimeFave'
 
-export default AnimeFave;
+export default AnimeFave

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -7,20 +7,20 @@ export const HeaderContainer = styled.div`
     display: ${({ isHome }) => (!isHome ? 'none' : 'flex')};
     flex-direction: column;
   }
-`;
+`
 
 export const Header = styled.div`
   display: flex;
   @media (max-width: 640px) {
     flex-direction: column;
   }
-`;
+`
 
 export const Image = styled.img`
   width: 200px;
   margin-right: 1rem;
   border-radius: 2px;
-`;
+`
 
 export const ViewResumeLink = styled.a`
   display: flex;
@@ -39,4 +39,4 @@ export const ViewResumeLink = styled.a`
     fill: white;
     margin-left: 8px;
   }
-`;
+`

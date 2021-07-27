@@ -1,11 +1,11 @@
-import React from "react";
-import { SectionTitle } from "../../../styles";
-import { AnimeItem, AnimeName, AnimeDescription } from "./styles";
-import Layout from "../../../components/Layout";
-import { Progress } from "semantic-ui-react";
-import StarRatingComponent from "react-star-rating-component";
+import React from 'react'
+import { SectionTitle } from '../../../styles'
+import { AnimeItem, AnimeName, AnimeDescription } from './styles'
+import Layout from '../../../components/Layout'
+import { Progress } from 'semantic-ui-react'
+import StarRatingComponent from 'react-star-rating-component'
 
-var query = `{
+const query = `{
   User(id: 478182) {
     favourites {
       anime {
@@ -57,72 +57,74 @@ var query = `{
       }
     }
     }
-}`;
-var url = "https://graphql.anilist.co",
-  options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      query: query,
-    }),
-  };
+}`
+const url = 'https://graphql.anilist.co'
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  },
+  body: JSON.stringify({
+    query: query
+  })
+}
 
 class AnimeFave extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
 
     this.state = {
       isLoading: true,
       favourites: {},
       statistics: {},
       total_count: 0,
-      edges: [],
-    };
-    this.handleData = this.handleData.bind(this);
-    this.handleFetch = this.handleFetch.bind(this);
-    this.handleError = this.handleError.bind(this);
-    this.handleResponse = this.handleResponse.bind(this);
+      edges: []
+    }
+    this.handleData = this.handleData.bind(this)
+    this.handleFetch = this.handleFetch.bind(this)
+    this.handleError = this.handleError.bind(this)
+    this.handleResponse = this.handleResponse.bind(this)
   }
 
-  componentDidMount() {
-    this.handleFetch();
+  componentDidMount () {
+    this.handleFetch()
   }
-  handleFetch() {
+
+  handleFetch () {
     fetch(url, options)
       .then(this.handleResponse)
       .then(this.handleData)
-      .catch(this.handleError);
+      .catch(this.handleError)
   }
-  handleResponse(response) {
+
+  handleResponse (response) {
     return response.json().then(function (json) {
-      return response.ok ? json : Promise.reject(json);
-    });
+      return response.ok ? json : Promise.reject(json)
+    })
   }
 
-  handleError(error) {
-    alert("Error, check console");
-    console.log(this.state.edges);
-    //console.log(typeof this.state.edges[0].node.coverImage.large)
-    console.log(this.state.statistics.count);
-    console.log(this.state.statistics);
-    console.error(error);
+  handleError (error) {
+    alert('Error, check console')
+    console.log(this.state.edges)
+    // console.log(typeof this.state.edges[0].node.coverImage.large)
+    console.log(this.state.statistics.count)
+    console.log(this.state.statistics)
+    console.error(error)
   }
 
-  handleData(data) {
-    var animeData = data.data.User;
-    console.log(animeData);
-    this.setState({ favourites: animeData.favourites.anime });
-    this.setState({ statistics: animeData.statistics.anime });
-    this.setState({ total_count: animeData.statistics.anime.count });
-    this.setState({ edges: animeData.favourites.anime.edges });
+  handleData (data) {
+    const animeData = data.data.User
+    console.log(animeData)
+    this.setState({ favourites: animeData.favourites.anime })
+    this.setState({ statistics: animeData.statistics.anime })
+    this.setState({ total_count: animeData.statistics.anime.count })
+    this.setState({ edges: animeData.favourites.anime.edges })
   }
 
-  render() {
-    const { user } = this.props;
-    const animeData = this.state.edges;
+  render () {
+    const { user } = this.props
+    const animeData = this.state.edges
     const animeFavs = animeData.map((d) => (
       <ul key={d.node.title.english}>
         <AnimeItem>
@@ -139,21 +141,20 @@ class AnimeFave extends React.Component {
 
               <div
                 className="column"
-                className="Progress_rating"
-                style={{ paddingLeft: 20,paddingTop:70 }}
+                style={{ paddingLeft: 20, paddingTop: 70 }}
               >
                 <h6>Rating</h6>
                 <StarRatingComponent
-                  name={"String"} /* name of the radio input, it is required */
+                  name={'String'} /* name of the radio input, it is required */
                   value={Math.round(
                     (d.node.meanScore / 100) * 5
                   )} /* number of selected icon (`0` - none, `1` - first) */
                   starCount={5} /* number of icons in rating, default `5` */
                   starColor={
-                    "#ffb400"
+                    '#ffb400'
                   } /* color of selected icons, default `#ffb400` */
                   emptyStarColor={
-                    "#FFFFFF"
+                    '#FFFFFF'
                   } /* color of non-selected icons, default `#333` */
                   editing={
                     false
@@ -167,13 +168,13 @@ class AnimeFave extends React.Component {
                   </Progress>
                 </div>
 
-                <AnimeDescription>{d.node.description.replace(/(<([^>]+)>)/ig,"")}</AnimeDescription>
+                <AnimeDescription>{d.node.description.replace(/(<([^>]+)>)/ig, '')}</AnimeDescription>
               </div>
             </div>
           </li>
         </AnimeItem>
       </ul>
-    ));
+    ))
 
     // Define the config we'll need for our Api request
     return (
@@ -185,8 +186,8 @@ class AnimeFave extends React.Component {
           <div>{animeFavs}</div>
         </div>
       </Layout>
-    );
+    )
   }
 }
 
-export default AnimeFave;
+export default AnimeFave

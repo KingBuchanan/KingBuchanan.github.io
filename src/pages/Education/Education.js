@@ -1,7 +1,7 @@
-import React from 'react';
-import Layout from '../../components/Layout';
-import { SectionTitle, Paragraph } from '../../styles';
-import { EducationItem, Institution, Degree } from './styles';
+import React from 'react'
+import Layout from '../../components/Layout'
+import { SectionTitle, Paragraph } from '../../styles'
+import { EducationItem, Institution, Degree } from './styles'
 
 const Education = ({ user }) => {
   return (
@@ -27,7 +27,7 @@ const Education = ({ user }) => {
         </ul>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Education;
+export default Education

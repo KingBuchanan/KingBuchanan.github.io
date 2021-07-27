@@ -1,17 +1,18 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { ArrowRight16 } from '@carbon/icons-react';
-import { HeaderContainer, Header, Image, ViewResumeLink } from './styles';
+/* eslint-disable react/prop-types */
+import React from 'react'
+import { useLocation } from 'react-router-dom'
+import { ArrowRight16 } from '@carbon/icons-react'
+import { HeaderContainer, Header, Image, ViewResumeLink } from './styles'
 
 const UserHeader = ({ user }) => {
-  const location = useLocation();
+  const location = useLocation()
 
   return (
     <HeaderContainer isHome={location.pathname === '/'}>
       <Header>
         <Image src={user.basics.picture} />
         <div>
-          
+
           <h2>{user.basics.name}<img src="https://piskel-imgstore-b.appspot.com/img/7c148d8a-b8c2-11e9-bf50-69f4a3300400.gif" alt="Hakeem the Wizard" /> </h2>
           <h4>
             <a
@@ -22,13 +23,13 @@ const UserHeader = ({ user }) => {
               @{user.basics.username}
             </a>
           </h4>
-          
+
           <p>{user.basics.label}</p>
           <p>Coding in {user.basics.region}</p>
-          
+
           <p>Lv.{user.basics.yearsOfExperience} Developer </p>
           <p>{user.basics.headline}</p>
-          
+
         </div>
       </Header>
       <div>
@@ -42,7 +43,7 @@ const UserHeader = ({ user }) => {
         </ViewResumeLink>
       </div>
     </HeaderContainer>
-  );
-};
+  )
+}
 
-export default UserHeader;
+export default UserHeader

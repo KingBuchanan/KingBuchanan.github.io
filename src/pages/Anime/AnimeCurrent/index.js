@@ -1,3 +1,3 @@
-import AnimeCurrent from './AnimeCurrent';
+import AnimeCurrent from './AnimeCurrent'
 
-export default AnimeCurrent;
+export default AnimeCurrent

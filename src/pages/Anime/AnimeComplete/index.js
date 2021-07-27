@@ -1,3 +1,3 @@
-import AnimeComplete from './AnimeComplete';
+import AnimeComplete from './AnimeComplete'
 
-export default AnimeComplete;
+export default AnimeComplete

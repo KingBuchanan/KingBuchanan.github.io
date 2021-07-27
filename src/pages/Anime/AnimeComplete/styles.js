@@ -21,11 +21,7 @@ export const AnimeDescription = styled.p`
  
   
 `
-export const AnimePagination=styled.button`
+export const AnimePagination = styled.button`
 display: inline-block;
 }
 `
-
-
-
-

@@ -1,7 +1,8 @@
-import React from 'react';
-import Layout from '../../components/Layout';
-import { SectionTitle, Pill } from '../../styles';
-import { ProjectItem, ProjectTitle, SkillContainer } from './styles';
+/* eslint-disable react/prop-types */
+import React from 'react'
+import Layout from '../../components/Layout'
+import { SectionTitle, Pill } from '../../styles'
+import { ProjectItem, ProjectTitle, SkillContainer } from './styles'
 
 const Projects = ({ user }) => {
   return (
@@ -23,7 +24,7 @@ const Projects = ({ user }) => {
         </ul>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Projects;
+export default Projects

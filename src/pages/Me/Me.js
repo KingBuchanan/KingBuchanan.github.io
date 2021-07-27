@@ -1,7 +1,7 @@
-import React from 'react';
-import Layout from '../../components/Layout';
-import { SectionTitle, Paragraph, Pill } from '../../styles';
-import { ProfileLink } from './styles';
+import React from 'react'
+import Layout from '../../components/Layout'
+import { SectionTitle, Paragraph, Pill } from '../../styles'
+import { ProfileLink } from './styles'
 
 const Me = ({ user }) => {
   return (
@@ -32,7 +32,7 @@ const Me = ({ user }) => {
         </ul>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Me;
+export default Me

@@ -1,3 +1,3 @@
-import Anime from './Anime';
+import Anime from './Anime'
 
-export default Anime;
+export default Anime
