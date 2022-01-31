@@ -40,7 +40,7 @@ const MobileNav = () => {
             tooltipPosition="bottom"
           />
         </NavLink>
-        <NavLink to="/anime">
+        <NavLink to="/anime/completed">
           <NavButton
             hasIconOnly
             renderIcon={FaceActivated24}

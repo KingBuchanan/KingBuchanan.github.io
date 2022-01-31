@@ -1,6 +1,6 @@
 import React from "react";
 import { SectionTitle } from "../../../styles";
-import { AnimeItem, AnimeName, AnimeDescription,} from "./styles";
+import { AnimeItem, AnimeName, AnimeDescription, DataBase} from "./styles";
 import Layout from "../../../components/Layout";
 import { Progress,Pagination  } from "semantic-ui-react";
 import StarRatingComponent from "react-star-rating-component";
@@ -134,6 +134,7 @@ class AnimeComplete extends React.Component {
     const anime = this.state.mediaList;
     
     const AnimeList = anime.map((d) => (
+      <DataBase>
       <ul key={d.media.title.english}>
         {/* Add the object for an anime */}
         <AnimeItem>
@@ -189,6 +190,7 @@ class AnimeComplete extends React.Component {
           </div>
         </AnimeItem>
       </ul>
+      </DataBase>
     ));
 
     return (

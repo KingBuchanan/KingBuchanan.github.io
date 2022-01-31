@@ -28,6 +28,7 @@
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "node-sass": "^4.14.1",
+    "pure-react-carousel": "^1.27.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
@@ -54,7 +55,6 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "format": "prettier-eslint --write \"{,!(node_modules)/**/}*.{js,jsx}\""
-
   },
   "eslintConfig": {
     "extends": "react-app",
