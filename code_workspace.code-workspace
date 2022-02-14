@@ -6,6 +6,9 @@
 	],
 	"settings": {
 		"git.ignoreLimitWarning": true,
-		"npm.enableRunFromFolder": true
+		"npm.enableRunFromFolder": true,
+		"editor.formatOnSave": true,
+		"javascript.format.enable": false
 	}
+	
 }

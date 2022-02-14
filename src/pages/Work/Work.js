@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+//@flow 
 import React from 'react'
 import Layout from '../../components/Layout'
 import { SectionTitle, Paragraph } from '../../styles'
