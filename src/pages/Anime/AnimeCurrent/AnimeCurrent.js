@@ -4,10 +4,11 @@ import { AnimeItem, AnimeName, AnimeDescription } from './styles'
 import Layout from '../../../components/Layout'
 import { Progress } from 'semantic-ui-react'
 import StarRatingComponent from 'react-star-rating-component'
-import stripHtml from 'string-strip-html'
+import FlexboxReact from 'flexbox-react'
+import { ScrollBox, ScrollAxes, FastTrack } from 'react-scroll-box'; // ES6
 
 const query =
-`{
+  `{
     Page{
         mediaList(userId:478182,status:CURRENT){
         progress
@@ -50,7 +51,7 @@ const options = {
 }
 
 class AnimeCurrent extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -63,81 +64,90 @@ class AnimeCurrent extends React.Component {
     this.handleResponse = this.handleResponse.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.handleFetch()
   }
 
-  handleFetch () {
+  handleFetch() {
     fetch(url, options).then(this.handleResponse)
       .then(this.handleData)
       .catch(this.handleError)
   }
 
-  handleResponse (response) {
+  handleResponse(response) {
     return response.json().then(function (json) {
       return response.ok ? json : Promise.reject(json)
     })
   }
 
-  handleError (error) {
+  handleError(error) {
     alert('Error, check console')
     console.error(error)
   }
 
-  handleData (data) {
+  handleData(data) {
     const AnimeList = data.data.Page.mediaList
     this.setState({ mediaList: AnimeList })
     console.log(this.state.mediaList)
   }
 
-  render () {
+  render() {
     const { user } = this.props
 
     const anime = this.state.mediaList
     const AnimeList = anime.map((d) => <ul key={d.media.title.english} >
 
-        <AnimeItem>
+      <AnimeItem>
         <div className="row">
-        <div className="column">
-        <AnimeName>{d.media.title.english}</AnimeName>
-        <AnimeName>{d.media.title.native}</AnimeName>
-        <img src={d.media.coverImage.large} alt="Anime Cover Images"></img>
-       </div>
+          <div className="column">
+            <AnimeName>{d.media.title.english}</AnimeName>
+            <AnimeName>{d.media.title.native}</AnimeName>
+            <img src={d.media.coverImage.large} alt="Anime Cover Images"></img>
+          </div>
 
-       <div className="column" className="Progress_rating" style={{ paddingLeft: 20, paddingTop: 70 }}>
+          <div className="column" className="Progress_rating" style={{ paddingLeft: 20, paddingTop: 70 }}>
 
-         <h6>Rating</h6>
-    <StarRatingComponent
-    name={'String'} /* name of the radio input, it is required */
-    value={Math.round((d.score / 10) * 5)} /* number of selected icon (`0` - none, `1` - first) */
-    starCount={5} /* number of icons in rating, default `5` */
-    starColor={'#ffb400'} /* color of selected icons, default `#ffb400` */
-    emptyStarColor={'#FFFFFF'} /* color of non-selected icons, default `#333` */
-    editing={false} /* is component available for editing, default `true` */
-/>
+            <h6>Rating</h6>
+            <StarRatingComponent
+              name={'String'} /* name of the radio input, it is required */
+              value={Math.round((d.score / 10) * 5)} /* number of selected icon (`0` - none, `1` - first) */
+              starCount={5} /* number of icons in rating, default `5` */
+              starColor={'#ffb400'} /* color of selected icons, default `#ffb400` */
+              emptyStarColor={'#FFFFFF'} /* color of non-selected icons, default `#333` */
+              editing={false} /* is component available for editing, default `true` */
+            />
 
-<div className="ProgressBar" style={{ width: 300 }}>
-  <h5>Completion/episodes Watched:</h5>
-  <Progress percent={(d.progress / d.media.episodes) * 100} size="small" color="green" active >
-      {d.progress}/{d.media.episodes}
-    </Progress>
-</div>
+            <div className="ProgressBar" style={{ width: 300 }}>
+              <h5>Completion/episodes Watched:</h5>
+              <Progress percent={(d.progress / d.media.episodes) * 100} size="small" color="green" active >
+                {d.progress}/{d.media.episodes}
+              </Progress>
+            </div>
 
-      <stripHtml> <AnimeDescription><p>{d.media.description.replace(/(<([^>]+)>)/ig, '')}</p></AnimeDescription></stripHtml>
-       </div>
-       </div>
-        </AnimeItem>
-       </ul>)
+            <FlexboxReact><stripHtml> <ScrollBox style={{ height: '400px' }}
+              scroll-box--has-axis-y='30'>
+                <p>
+              {d.media.description.replace(/(<([^>]+)>)/ig, '')}
+              </p> 
+            </ScrollBox>
+            </stripHtml>
+            </FlexboxReact>
+          </div>
+        </div>
+      </AnimeItem>
+    </ul>)
 
     return (
-           <Layout user={user}>
-<div>
-<SectionTitle>
+      <Layout user={user}>
+        <div>
+          <SectionTitle>
             Currently Watching: {this.state.mediaList.length}
           </SectionTitle>
-               {AnimeList}
-               </div>
-           </Layout>
+          <FlexboxReact flexDirection='column'>
+            {AnimeList}
+          </FlexboxReact>
+        </div>
+      </Layout>
 
     )
   }

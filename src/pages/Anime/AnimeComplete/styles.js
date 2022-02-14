@@ -28,7 +28,7 @@ export const AnimeDescription = styled.p`
 `
 export const DataBase = styled.button`
 display: flex;
-flex-shrink : 2;\
+flex-shrink : 2;
 flex-basis: auto;
 }
 `

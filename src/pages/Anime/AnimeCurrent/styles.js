@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { white } from '@carbon/colors'
 
+
+
 export const AnimeItem = styled.li`
   margin-top: .5rem;
   padding-bottom: 2rem;
@@ -14,10 +16,10 @@ export const AnimeName = styled.h4`
 
 export const AnimeDescription = styled.p`
   font-weight: bold;
-  padding-top:60px;
+  padding-top:30px;
   width:auto;
   height: 40px;
   text-align:bottom;
- 
+  display: flex;
   
 `
