@@ -17,7 +17,7 @@
   "private": true,
   "dependencies": {
     "@carbon/themes": "^10.16.0",
-    "buttercms": "^1.2.3",
+    "buttercms": "^1.2.9",
     "carbon-components": "^10.17.0",
     "carbon-components-react": "^7.17.0",
     "carbon-icons": "^7.0.7",
