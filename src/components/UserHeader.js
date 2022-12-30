@@ -4,8 +4,17 @@ import { useLocation } from 'react-router-dom'
 import { ArrowRight16 } from '@carbon/icons-react'
 import { HeaderContainer, Header, Image, ViewResumeLink } from './styles'
 
+
+
+
 const UserHeader = ({ user }) => {
+
   const location = useLocation()
+  const [shouldHideHeader, setShouldHideHeader] = useState(false);
+  const [shouldShowShadow, setShouldShowShadow] = useState(false);
+  
+  const shadowStyle = shouldShowShadow ? 'shadow' : '';
+  const hiddenStyle = shouldHideHeader ? 'hidden' : '';
 
   return (
     <HeaderContainer isHome={location.pathname === '/'}>

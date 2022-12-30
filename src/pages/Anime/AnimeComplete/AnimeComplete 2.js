@@ -1,3 +1,4 @@
+//@flow 
 import React from "react";
 import { SectionTitle } from "../../../styles";
 import { AnimeItem, AnimeName, AnimeDescription, DataBase} from "./styles";
