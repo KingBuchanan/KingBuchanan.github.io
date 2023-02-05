@@ -108,7 +108,7 @@ class AnimeCurrent extends React.Component {
         <img src={d.media.coverImage.large} alt="Anime Cover Images"></img>
        </div>
       
-       <div className="column" className="Progress_rating" style={{paddingLeft:20, paddingTop:70}}>
+       <div className="column" className="Progress_rating" style={{ paddingLeft: 20,paddingTop:50,paddingRight:20 }}>
         
          <h6>Rating</h6>
     <StarRatingComponent 

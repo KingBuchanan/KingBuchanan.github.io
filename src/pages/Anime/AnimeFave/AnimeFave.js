@@ -140,7 +140,7 @@ class AnimeFave extends React.Component {
               <div
                 className="column"
                 className="Progress_rating"
-                style={{ paddingLeft: 20,paddingTop:70 }}
+                style={{ paddingLeft: 20,paddingTop:50,paddingRight:20 }}
               >
                 <h6>Rating</h6>
                 <StarRatingComponent
