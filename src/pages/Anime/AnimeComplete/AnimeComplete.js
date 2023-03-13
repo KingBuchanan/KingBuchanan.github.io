@@ -4,6 +4,30 @@ import { AnimeItem, AnimeName, AnimeDescription } from "./styles";
 import Layout from "../../../components/Layout";
 import { Progress } from "semantic-ui-react";
 import StarRatingComponent from "react-star-rating-component";
+import { useSpring,animated } from "react-spring";
+
+
+
+
+function Number ({n}){
+  const {number}=useSpring({
+    from: {number:0},
+    number: n,
+    delay: 200,
+    config:{mass:1,tension:20,friction:10}
+  });
+  return <animated.div>{number.to((n)=> n.toFixed(0))}</animated.div>;
+}
+
+const calculateRange = (data, rowsPerPage) => {
+  const range = [];
+  const num = Math.ceil(data.length / rowsPerPage);
+  let i = 1;
+  for (let i = 1; i <= num; i++) {
+    range.push(i);
+  }
+  return range;
+};
 
 var query = `{
     Page{
@@ -168,9 +192,9 @@ class AnimeComplete extends React.Component {
 
     return (
       <Layout user={user}>
-        <div class="row" >
-          <SectionTitle>
-            Total Anime watched: {this.state.stats.count}
+        <div class="row" style={{paddingBottom: '20px'}} >
+          <SectionTitle display='inline'>
+            Total Anime watched: <Number n={this.state.stats.count}/>
           </SectionTitle>
         </div>
         {AnimeList}

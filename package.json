@@ -21,6 +21,7 @@
     "carbon-components": "^10.17.0",
     "carbon-components-react": "^7.17.0",
     "carbon-icons": "^7.0.7",
+    "has-symbols": "^1.0.3",
     "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -28,10 +29,11 @@
     "react-router-dom": "^5.2.0",
     "react-script": "^2.0.5",
     "react-scripts": "^5.0.1",
+    "react-spring": "^9.7.1",
     "react-star-rating-component": "^1.4.1",
     "semantic-ui-react": "^1.1.1",
     "string-strip-html": "^4.5.1",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.3.8"
   },
   "scripts": {
     "predeploy": "npm run build",

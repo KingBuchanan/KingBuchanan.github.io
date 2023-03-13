@@ -1,5 +1,6 @@
 import React from 'react';
 import Sidebar from '../Sidebar';
+import Navbar from '../Nav/Navbar';
 import UserHeader from '../UserHeader';
 import MobileNav from '../../MobileNav';
 
