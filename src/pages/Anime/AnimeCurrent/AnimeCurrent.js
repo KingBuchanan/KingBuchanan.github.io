@@ -1,155 +1,166 @@
-import React from 'react';
-import { SectionTitle, } from '../../../styles';
-import {AnimeItem,AnimeName,AnimeDescription} from  './styles';
+import React, { Component } from 'react';
+import { SectionTitle } from '../../../styles';
+import {
+  AnimeItem,
+  AnimeName,
+  AnimeDescriptionBox,
+  AnimeCover,
+  AnimeCarousel,
+  AnimeDetails,
+  ProgressBar,
+  AnimeCarouselButton,
+} from './styles';
 import Layout from '../../../components/Layout';
-import { Progress, } from 'semantic-ui-react'
+import { Progress } from 'semantic-ui-react';
 import StarRatingComponent from 'react-star-rating-component';
-import stripHtml from "string-strip-html";
+import stripHtml from 'string-strip-html';
 
-var query=
-`{
-    Page{
-        mediaList(userId:478182,status:CURRENT){
+const url = 'https://graphql.anilist.co';
+const query = `
+  {
+    Page {
+      mediaList(userId: 478182, status: CURRENT) {
         progress
         score
-          media {
-            id
-            title {
-              romaji
-              english
-              native
-              userPreferred
-            }
-            coverImage {
-              extraLarge
-              large
-              medium
-              color
-            }
-            mediaListEntry{
-                score
-            }
-            meanScore
-            episodes
-            description(asHtml: false)
+        media {
+          id
+          title {
+            romaji
+            english
+            native
+            userPreferred
           }
+          coverImage {
+            extraLarge
+            large
+            medium
+            color
+          }
+          mediaListEntry {
+            score
+          }
+          meanScore
+          episodes
+          description(asHtml: false)
         }
-        }
-}`
+      }
+    }
+  }
+`;
 
-var url = 'https://graphql.anilist.co',
-options = {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    },
-    body: JSON.stringify({
-        query: query,
-    })
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+  body: JSON.stringify({ query }),
 };
 
-
-class AnimeCurrent extends React.Component {
-    constructor(props) {
-      super(props);
-  
-      this.state={
-        mediaList:[]
-
-  
-      }
-      this.handleData=this.handleData.bind(this);
-      this.handleFetch=this.handleFetch.bind(this);
-      this.handleError=this.handleError.bind(this);
-      this.handleResponse=this.handleResponse.bind(this);
-    }
-  
-  componentDidMount(){
-    this.handleFetch();
+class AnimeCurrent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mediaList: [],
+      activeIndex: 0, // Tracks the currently active anime entry
+    };
   }
 
-  handleFetch(){
-    fetch(url, options).then(this.handleResponse)
-    .then(this.handleData)
-    .catch(this.handleError);
+  componentDidMount() {
+    this.fetchAnimeData();
   }
 
+  fetchAnimeData = () => {
+    fetch(url, options)
+      .then(this.handleResponse)
+      .then(this.handleData)
+      .catch(this.handleError);
+  };
 
-   handleResponse(response) {
-    return response.json().then(function (json) {
-        return response.ok ? json : Promise.reject(json);
-    });
-    }
-  
-  handleError(error) {
+  handleResponse = (response) => {
+    return response.json().then((json) =>
+      response.ok ? json : Promise.reject(json)
+    );
+  };
+
+  handleData = (data) => {
+    const animeList = data.data.Page.mediaList;
+    this.setState({ mediaList: animeList });
+  };
+
+  handleError = (error) => {
     alert('Error, check console');
     console.error(error);
-    }
-  
-    handleData(data) {
-        var AnimeList=data.data.Page.mediaList;
-        this.setState({mediaList:AnimeList});
-        console.log(this.state.mediaList);
+  };
 
-   }
+  // Navigate left
+  goToPrevious = () => {
+    const { activeIndex } = this.state;
+    this.setState({
+      activeIndex: (activeIndex - 1 + this.state.mediaList.length) % this.state.mediaList.length,
+    });
+  };
 
-   render(){
-       const {user}=this.props;
-       
-       const anime=this.state.mediaList;
-       const AnimeList=anime.map((d)=><ul key={d.media.title.english} >
-         
-        <AnimeItem>
-        <div className="row">
-        <div className="column">
-        <AnimeName>{d.media.title.english}</AnimeName>
-        <AnimeName>{d.media.title.native}</AnimeName>
-        <img src={d.media.coverImage.large} alt="Anime Cover Images"></img>
-       </div>
-      
-       <div className="column" className="Progress_rating" style={{ paddingLeft: 20,paddingTop:50,paddingRight:20 }}>
-        
-         <h6>Rating</h6>
-    <StarRatingComponent 
-    name={"String"} /* name of the radio input, it is required */
-    value={Math.round((d.score/10)*5)} /* number of selected icon (`0` - none, `1` - first) */
-    starCount={5} /* number of icons in rating, default `5` */
-    starColor={"#ffb400"} /* color of selected icons, default `#ffb400` */
-    emptyStarColor={"#FFFFFF"} /* color of non-selected icons, default `#333` */
-    editing={false} /* is component available for editing, default `true` */
-/>
+  // Navigate right
+  goToNext = () => {
+    const { activeIndex } = this.state;
+    this.setState({
+      activeIndex: (activeIndex + 1) % this.state.mediaList.length,
+    });
+  };
 
-<div className="ProgressBar" style={{width:300}}>
-  <h5>Completion/episodes Watched:</h5>
-  <Progress percent={(d.progress/d.media.episodes)*100} size="small" color="green" active >
-      {d.progress}/{d.media.episodes}
-    </Progress>
-</div>
+  renderAnimeList = () => {
+    return this.state.mediaList.map((anime, index) => (
+      <AnimeItem key={anime.media.id} className={index === this.state.activeIndex ? 'active' : ''}>
+        <AnimeCover>
+          <img src={anime.media.coverImage.large} alt="Anime Cover" />
+        </AnimeCover>
 
-       
-      <stripHtml> <AnimeDescription><p>{d.media.description.replace(/(<([^>]+)>)/ig,"")}</p></AnimeDescription></stripHtml>
-       </div>
-       </div>
-        </AnimeItem>
-       </ul>);
+        <AnimeDetails>
+          <AnimeName>{anime.media.title.english}</AnimeName>
+          <AnimeName>{anime.media.title.native}</AnimeName>
+          <StarRatingComponent
+            name="Rating"
+            value={Math.round((anime.score / 10) * 5)}
+            starCount={5}
+            starColor="#ffb400"
+            emptyStarColor="#FFFFFF"
+            editing={false}
+          />
 
+          <ProgressBar>
+            <h5>Completion/episodes Watched:</h5>
+            <Progress percent={(anime.progress / anime.media.episodes) * 100} size="small" color="green" active>
+              {anime.progress}/{anime.media.episodes}
+            </Progress>
+          </ProgressBar>
 
+          <AnimeDescriptionBox className={index === this.state.activeIndex ? 'active' : ''}>
+            <p>{stripHtml(anime.media.description).result}</p>
+          </AnimeDescriptionBox>
+        </AnimeDetails>
+      </AnimeItem>
+    ));
+  };
 
-
-
-
-       return(
-           <Layout user={user}>
-<div>
-<SectionTitle>
-            Currently Watching: {this.state.mediaList.length}
-          </SectionTitle>
-               {AnimeList}
-               </div>
-           </Layout>
-
-       );
-   }
+  render() {
+    return (
+      <Layout user={this.props.user}>
+        <div>
+          <SectionTitle>Currently Watching: {this.state.mediaList.length}</SectionTitle>
+          <AnimeCarousel>
+            {this.renderAnimeList()}
+            <AnimeCarouselButton left onClick={this.goToPrevious}>
+              &#10094;
+            </AnimeCarouselButton>
+            <AnimeCarouselButton right onClick={this.goToNext}>
+              &#10095;
+            </AnimeCarouselButton>
+          </AnimeCarousel>
+        </div>
+      </Layout>
+    );
+  }
 }
+
 export default AnimeCurrent;
